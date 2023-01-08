@@ -111,7 +111,8 @@ class AppTheme {
       selectionHandleColor: const Color(0xFF000812),
       cursorColor: const Color(0xFF000812),
     ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(elevation: 10, backgroundColor: Colors.white),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        elevation: 10, backgroundColor: Colors.white),
     listTileTheme: const ListTileThemeData(
       iconColor: Color(0xFF818492),
     ),
@@ -188,7 +189,8 @@ class AppTheme {
       style: ButtonStyle(
         side: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.disabled)) {
-            return BorderSide(width: 1.5, color: const Color(0xFF000812).withOpacity(0.7));
+            return BorderSide(
+                width: 1.5, color: const Color(0xFF000812).withOpacity(0.7));
           } else {
             return const BorderSide(width: 1.5, color: Color(0xFF000812));
           }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'app_state.dart';
 
-class UremitBackButtonDispatcher extends RootBackButtonDispatcher {
+class AppBackButtonDispatcher extends RootBackButtonDispatcher {
   final AppState appState;
 
-  UremitBackButtonDispatcher(this.appState) : super();
+  AppBackButtonDispatcher(this.appState) : super();
 
   @override
   Future<bool> didPopRoute() async {

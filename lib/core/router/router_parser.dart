@@ -5,7 +5,7 @@ import 'models/page_paths.dart';
 import 'pages.dart';
 
 
-class UremitRouterParser extends RouteInformationParser<PageConfiguration> {
+class RouterParser extends RouteInformationParser<PageConfiguration> {
   @override
   Future<PageConfiguration> parseRouteInformation(RouteInformation routeInformation) {
     final uri = Uri.parse(routeInformation.location ?? '');

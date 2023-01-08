@@ -32,6 +32,13 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  addWidget({required PageConfiguration page,required Widget child}){
+    AppState appState=sl();
+    appState.currentAction = PageAction(
+        state: PageState.addWidget,
+        page: page,
+        widget: child);
+  }
   Future goToNext(PageConfiguration pageConfigs,
       {PageState pageState = PageState.addPage, bool wait = false}) async {
     AppState appState = GetIt.I.get<AppState>();
@@ -43,19 +50,25 @@ class AppState extends ChangeNotifier {
       page: pageConfigs,
     );
     if (wait) {
-      startWaiting();
+      await startWaiting();
     }
   }
 
   removePage(PageConfiguration pageConfigs) {
-
     currentAction = PageAction(page: pageConfigs, state: PageState.remove);
+  }
 
-
+  removeManyPages(List<PageConfiguration> pages) {
+    currentAction = PageAction(pages: pages, state: PageState.removeMany);
   }
 
   void moveToBackScreen() {
+
     currentAction = const PageAction(state: PageState.pop);
+    if (waitToPop != null) {
+      waitToPop!.complete(true);
+      waitToPop = null;
+    }
   }
 
   willWait() {
@@ -63,7 +76,7 @@ class AppState extends ChangeNotifier {
   }
 
   Future startWaiting() async {
-    await waitToPop!.future;
+    return waitToPop!.future;
   }
 
   stopWaiting(dynamic value) {

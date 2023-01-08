@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'core/router/uremit_back_button_dispatcher.dart';
-import 'core/router/uremit_router_delegate.dart';
-import 'core/router/uremit_router_parser.dart';
+import 'core/router/back_button_dispatcher.dart';
+import 'core/router/router_delegate.dart';
+import 'core/router/router_parser.dart';
 import 'core/utils/globals/globals.dart';
 import 'core/utils/theme/app_theme.dart';
-
-
 
 bool isSessionExpired = false;
 
@@ -20,31 +18,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late UremitRouterDelegate delegate;
-  late UremitBackButtonDispatcher backButtonDispatcher;
-  late UremitRouterParser parser = UremitRouterParser();
+  late AppRouterDelegate delegate;
+  late BackButtonDispatcher backButtonDispatcher;
+  late RouterParser parser = RouterParser();
 
   @override
   void initState() {
-    delegate = UremitRouterDelegate(sl());
-    backButtonDispatcher = UremitBackButtonDispatcher(sl());
+    delegate = AppRouterDelegate(sl());
+    backButtonDispatcher = AppBackButtonDispatcher(sl());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return ScreenUtilInit(
       designSize: const Size(360, 804),
-      builder: (c,ch) => GestureDetector(
+      builder: (c, ch) => GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: MaterialApp.router(
-
-
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: snackbarKey,
-
           title: 'Starting Project',
           theme: AppTheme.appTheme,
           routerDelegate: delegate,

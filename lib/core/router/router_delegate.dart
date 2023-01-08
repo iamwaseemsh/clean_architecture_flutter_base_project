@@ -10,7 +10,7 @@ import 'pages.dart';
 BuildContext?
     globalHomeContext; // doing this to pop the bottom sheet on home screen
 
-class UremitRouterDelegate extends RouterDelegate<PageConfiguration>
+class AppRouterDelegate extends RouterDelegate<PageConfiguration>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
   late final AppState appState;
   final List<Page> _pages = [];
@@ -18,7 +18,7 @@ class UremitRouterDelegate extends RouterDelegate<PageConfiguration>
 
   List<MaterialPage> get pages => List.unmodifiable(_pages);
 
-  UremitRouterDelegate(this.appState) {
+  AppRouterDelegate(this.appState) {
     appState.addListener(() {
       notifyListeners();
     });
