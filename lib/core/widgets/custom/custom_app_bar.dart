@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get_it/get_it.dart';
+import 'package:sb_myreports/core/navigator/data/app_navigator.dart';
 
-import '../../router/app_state.dart';
-import '../../utils/constants/app_assets.dart';
 
 
 
@@ -23,7 +22,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       leading: showBackButton
           ? GestureDetector(
               onTap: () {
-                GetIt.I.get<AppState>().moveToBackScreen();
+                GetIt.I.get<AppNavigator>().pop();
               },
               child: CircleAvatar(
                 radius: 10.r,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'core/router/back_button_dispatcher.dart';
-import 'core/router/router_delegate.dart';
-import 'core/router/router_parser.dart';
+import 'core/navigator/data/app_navigator.dart';
+import 'core/navigator/data/app_router.dart';
+import 'core/navigator/data/app_routes.dart';
 import 'core/utils/globals/globals.dart';
 import 'core/utils/theme/app_theme.dart';
 
@@ -18,14 +17,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late AppRouterDelegate delegate;
-  late BackButtonDispatcher backButtonDispatcher;
-  late RouterParser parser = RouterParser();
+
+  AppRouter appRoutes = sl<AppRouter>();
+  AppNavigator appNavigator = sl<AppNavigator>();
 
   @override
   void initState() {
-    delegate = AppRouterDelegate(sl());
-    backButtonDispatcher = AppBackButtonDispatcher(sl());
     super.initState();
   }
 
@@ -38,14 +35,16 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(360, 804),
       builder: (c, ch) => GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: MaterialApp.router(
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
           scaffoldMessengerKey: snackbarKey,
+
           title: 'Starting Project',
           theme: AppTheme.appTheme,
-          routerDelegate: delegate,
-          backButtonDispatcher: backButtonDispatcher,
-          routeInformationParser: parser,
+          onGenerateRoute: appRoutes.generate,
+          navigatorKey: appNavigator.getKey(),
+          initialRoute: AppRoutes.splash,
+
         ),
       ),
     );
